@@ -1,0 +1,246 @@
+<!-- views/documentation.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>API Documentation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f0f0f0;
+    }
+
+    header {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 20px auto;
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .api-section {
+      margin-bottom: 40px;
+    }
+
+    .api-title {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .endpoint {
+      background-color: #f9f9f9;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-left: 5px solid #007bff;
+    }
+
+    .endpoint-path {
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+      color: #007bff;
+    }
+
+    .endpoint-description {
+      margin-top: 5px;
+      color: #666;
+    }
+
+    .request-body {
+      margin-top: 10px;
+      background-color: #e9ecef;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .endpoint-example {
+      margin-top: 5px;
+      color: #999;
+    }
+
+   
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>API Documentation</h1>
+  </header>
+
+  <main>
+    <section class="api-section">
+      <h2 class="api-title">User API</h2>
+
+      <!-- POST /api/user -->
+      <div class="endpoint">
+        <h3 class="endpoint-path">POST /api/user</h3>
+        <p class="endpoint-description">Creates a new user.</p>
+        <div class="request-body">
+          <h4>Request Body:</h4>
+          <pre>
+{
+  "name": "John Doe",
+  "email": "johndoe@example.com",
+  "password": "password123",
+  "address": "123 Street, City",
+  "phone": "1234567890"
+}
+                    </pre>
+        </div>
+        <p class="endpoint-example">Example: /api/user</p>
+      </div>
+
+      <!-- GET /api/users -->
+      <div class="endpoint">
+        <h3 class="endpoint-path">GET /api/users</h3>
+        <p class="endpoint-description">Retrieves all users.</p>
+        <p class="endpoint-example">Example: /api/users</p>
+      </div>
+
+      <!-- GET /api/user/:id -->
+      <div class="endpoint">
+        <h3 class="endpoint-path">GET /api/user/:id</h3>
+        <p class="endpoint-description">Retrieves a user by ID.</p>
+        <p class="endpoint-example">Example: /api/user/12345</p>
+      </div>
+
+      <!-- DELETE /api/user/:id -->
+      <div class="endpoint">
+        <h3 class="endpoint-path">DELETE /api/user/:id</h3>
+        <p class="endpoint-description">Deletes a user by ID.</p>
+        <p class="endpoint-example">Example: /api/user/12345</p>
+      </div>
+
+      <!-- POST /api/uploadImage/:id -->
+      <div class="endpoint">
+        <h3 class="endpoint-path">POST /api/uploadImage/:id</h3>
+        <p class="endpoint-description">Uploads a profile image for a user.</p>
+        <div class="request-body">
+          <h4>Request Body (form-data):</h4>
+          <ul>
+            <li><strong>Key:</strong> `profileImage`</li>
+            <li><strong>Value:</strong> `<image file>` (Choose a file to upload)</li>
+          </ul>
+        </div>
+        <p class="endpoint-example">Example: /api/uploadImage/12345</p>
+      </div>
+
+      <!-- POST /api/login -->
+      <div class="endpoint">
+        <h3 class="endpoint-path">POST /api/login</h3>
+        <p class="endpoint-description">Logs in a user.</p>
+        <div class="request-body">
+          <h4>Request Body:</h4>
+          <pre>
+{
+  "email": "johndoe@example.com",
+  "password": "password123"
+}
+                    </pre>
+        </div>
+        <p class="endpoint-example">Example: /api/login</p>
+      </div>
+
+    </section>
+
+    <section class="api-section">
+      <h2 class="api-title">Product API</h2>
+
+      <!-- POST /api/addproduct -->
+      <div class="endpoint">
+        <h3 class="endpoint-path">POST /api/addproduct</h3>
+        <p class="endpoint-description">Creates a new product.</p>
+        <div class="request-body">
+          <h4>Request Body (form-data):</h4>
+          <ul>
+            <li><strong>Key:</strong> `name`</li>
+            <li><strong>Value:</strong> `Product Name`</li>
+            <li><strong>Key:</strong> `description`</li>
+            <li><strong>Value:</strong> `Product Description`</li>
+            <li><strong>Key:</strong> `price`</li>
+            <li><strong>Value:</strong> `100`</li>
+            <li><strong>Key:</strong> `category`</li>
+            <li><strong>Value:</strong> `Category Name`</li>
+            <li><strong>Key:</strong> `stock`</li>
+            <li><strong>Value:</strong> `10`</li>
+            <li><strong>Key:</strong> `image`</li>
+            <li><strong>Value:</strong> `<image file>` (Choose a file to upload)</li>
+          </ul>
+        </div>
+        <p class="endpoint-example">Example: /api/addproduct</p>
+      </div>
+
+      <!-- GET /api/products -->
+      <div class="endpoint">
+        <h3 class="endpoint-path">GET /api/products</h3>
+        <p class="endpoint-description">Retrieves all products.</p>
+        <p class="endpoint-example">Example: /api/products</p>
+      </div>
+
+    </section>
+
+    <section class="api-section">
+      <h2 class="api-title">User Cart API</h2>
+
+      <!-- POST /api/cart -->
+      <div class="endpoint">
+        <h3 class="endpoint-path">POST /api/cart</h3>
+        <p class="endpoint-description">Adds a product to the user's cart.</p>
+        <div class="request-body">
+          <h4>Request Body:</h4>
+          <pre>
+{
+  "userId": "user_id_here",
+  "productId": "product_id_here",
+  "quantity": 1
+}
+                    </pre>
+        </div>
+        <p class="endpoint-example">Example: /api/cart</p>
+      </div>
+
+      <!-- GET /api/cart/:userId -->
+      <div class="endpoint">
+        <h3 class="endpoint-path">GET /api/cart/:userId</h3>
+        <p class="endpoint-description">Retrieves the user's cart by user ID.</p>
+        <p class="endpoint-example">Example: /api/cart/user_id_here</p>
+      </div>
+
+      <!-- DELETE /api/cart -->
+      <div class="endpoint">
+        <h3 class="endpoint-path">DELETE /api/cart</h3>
+        <p class="endpoint-description">Removes a product from the user's cart.</p>
+        <div class="request-body">
+          <h4>Request Body:</h4>
+          <pre>
+{
+  "userId": "user_id_here",
+  "productId": "product_id_here"
+}
+                    </pre>
+        </div>
+        <p class="endpoint-example">Example: /api/cart</p>
+      </div>
+
+    </section>
+
+  </main>
+
+
+
+</body>
+
+</html>
