@@ -2,11 +2,14 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const path = require("path");
-const routers = require("./routers/routers");
-const productRouters = require("./routers/products");
-const UserCart = require("./routers/userCart");
 const dotenv = require("dotenv");
 
+// Routers
+const userRouter = require("./routers/user");
+const productRouter = require("./routers/products");
+const userCartRouter = require("./routers/userCart");
+
+// middlewares
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -18,21 +21,16 @@ app.set("views", path.join(__dirname, "views"));
 dotenv.config({ path: "./.env" });
 // mongodb connection
 const connectToDatabase = require("./connection");
-const { render } = require("ejs");
 connectToDatabase();
-
-// app.get("/", (req, res) => {
-//   res.json({ message: "Hello from backend !" });
-// });
 
 app.get("/", (req, res) => {
   res.render("home.ejs");
 });
 
 // routers
-app.use("/api", routers);
-app.use("/api", productRouters);
-app.use("/api", UserCart);
+app.use("/api", userRouter);
+app.use("/api", productRouter);
+app.use("/api", userCartRouter);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
