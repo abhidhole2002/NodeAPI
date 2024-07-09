@@ -12,13 +12,13 @@ const userPost = async (req, res) => {
         .status(400)
         .json({ msg: `User already exists with email: ${email}` });
     }
-    
-    const hashedPassword = hashedPassword(password)
+
+    const hashPass = hashedPassword(password);
     // Create the new user with hashed password
     const newUser = await User.create({
       name,
       email,
-      password: hashedPassword,
+      password: hashPass,
       address,
       phone,
     });
