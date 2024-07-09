@@ -115,6 +115,11 @@ const uploadImage = async (req, res) => {
   }
 };
 
+const clearUserArray = async (req, res) => {
+  User = [];
+  res.status(200).json({ message: "User array cleared", userArray });
+};
+
 module.exports = {
   userPost,
   getAllUser,
@@ -122,4 +127,5 @@ module.exports = {
   deleteUserById,
   loginUser,
   uploadImage,
+  clearUserArray,
 };
