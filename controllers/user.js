@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
+const { hashedPassword } = require("../services/auth");
 
 const userPost = async (req, res) => {
   const { name, email, password, address, phone } = req.body;
@@ -11,11 +12,8 @@ const userPost = async (req, res) => {
         .status(400)
         .json({ msg: `User already exists with email: ${email}` });
     }
-
-    // Hash the password
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
+    
+    const hashedPassword = hashedPassword(password)
     // Create the new user with hashed password
     const newUser = await User.create({
       name,
