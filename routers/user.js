@@ -6,7 +6,6 @@ const {
   deleteUserById,
   loginUser,
   uploadImage,
-  clearUserArray,
 } = require("../controllers/user");
 const upload = require("../multer/multer");
 const uploadImageToCloudinary = require("../utils/uploadImage");
@@ -18,7 +17,6 @@ router.post("/login", loginUser);
 router.get("/users", getAllUser);
 router.get("/user/:id", getUserById);
 router.delete("/user/:id", deleteUserById);
-router.delete("/clearUser", clearUserArray);
 router.post(
   "/uploadImage/:id",
   upload.single("profileImage"),

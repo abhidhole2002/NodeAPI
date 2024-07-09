@@ -10,8 +10,8 @@ const generateToken = (user) => {
 };
 
 const hashedPassword = async (password) => {
-  const salt = 10;
-  return await bcrypt.hash(password, salt);
+  const saltRound = 10;
+  return await bcrypt.hash(password, saltRound);
 };
 
 const comparePassword = async (password, hashedPassword) => {

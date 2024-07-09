@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const path = require("path");
+const cors = require("cors");
 const dotenv = require("dotenv");
 
 // Routers
@@ -10,6 +11,13 @@ const productRouter = require("./routers/products");
 const userCartRouter = require("./routers/userCart");
 
 // middlewares
+app.use(
+  cors({
+    origin: "https://e--com.vercel.app", // Replace with your frontend domain
+    methods: ["GET", "POST", "PUT", "DELETE"], // Specify the methods you want to allow
+    allowedHeaders: ["Content-Type", "Authorization"], // Specify the headers you want to allow
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());

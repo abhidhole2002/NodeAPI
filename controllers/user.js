@@ -1,6 +1,10 @@
 const User = require("../models/user");
 const bcrypt = require("bcrypt");
-const { hashedPassword } = require("../services/auth");
+const {
+  hashedPassword,
+  generateToken,
+  comparePassword,
+} = require("../services/auth");
 
 const userPost = async (req, res) => {
   const { name, email, password, address, phone } = req.body;
@@ -23,7 +27,7 @@ const userPost = async (req, res) => {
       phone,
     });
 
-    // Respond with the new user's data
+    const token = generateToken(newUser);
     res.status(201).json({
       msg: "User created successfully",
       user: {
@@ -33,9 +37,10 @@ const userPost = async (req, res) => {
         address: newUser.address,
         phone: newUser.phone,
       },
+      token,
     });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ errorrr: error.message });
   }
 };
 
@@ -82,11 +87,12 @@ const loginUser = async (req, res) => {
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }
-    const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = await comparePassword(password, user.password);
     if (!isMatch) {
       return res.status(401).json({ msg: "Invalid credentials" });
     }
 
+    const token = generateToken(user);
     res.status(200).json({ msg: "Login successful", user: user._id });
   } catch (error) {
     return res.status(500).json({ msg: error.message });
@@ -115,11 +121,6 @@ const uploadImage = async (req, res) => {
   }
 };
 
-const clearUserArray = async (req, res) => {
-  User = [];
-  res.status(200).json({ message: "User array cleared", userArray });
-};
-
 module.exports = {
   userPost,
   getAllUser,
@@ -127,5 +128,4 @@ module.exports = {
   deleteUserById,
   loginUser,
   uploadImage,
-  clearUserArray,
 };
