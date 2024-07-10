@@ -5,6 +5,7 @@ const {
   generateToken,
   comparePassword,
 } = require("../services/auth");
+const { uploadToCloudinary } = require("../utils/uploadImage");
 
 const userPost = async (req, res) => {
   const { name, email, password, address, phone } = req.body;
@@ -101,20 +102,29 @@ const loginUser = async (req, res) => {
 
 const uploadImage = async (req, res) => {
   try {
-    const { filename } = req.file;
+    const { path } = req.file;
     const { id } = req.params;
-    const user = await User.findByIdAndUpdate(
-      id,
-      { profileImage: filename },
-      { new: true }
-    );
+
+    const result = await uploadToCloudinary(req.file.path);
+    let user = await User.findById(id);
     if (!user) {
       return res.status(404).send({ error: "User not found" });
     }
-    console.log(filename);
+    console.log(path);
     console.log(user);
 
-    res.json(user);
+    if (user.profileImage) {
+      return res.status(400).json({
+        message: "User already has a profile image",
+      });
+    }
+
+    user.profileImage = result.url;
+    user = await user.save();
+    res.json({
+      message: "Image uploaded and profileImage added successfully",
+      imageUrl: user.profileImage,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send({ error: "Server error" });

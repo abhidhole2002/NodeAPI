@@ -11,11 +11,13 @@ const productRouter = require("./routers/products");
 const userCartRouter = require("./routers/userCart");
 
 // middlewares
+const allowedOrigins = ["https://e--com.vercel.app", "http://localhost:5173"];
 app.use(
   cors({
-    origin: "https://e--com.vercel.app", // Replace with your frontend domain
-    methods: ["GET", "POST", "PUT", "DELETE"], // Specify the methods you want to allow
-    allowedHeaders: ["Content-Type", "Authorization"], // Specify the headers you want to allow
+    origin: allowedOrigins,
+    optionsSuccessStatus: 200,
+    methods: ["GET", "POST", "PUT", "DELETE"], 
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 app.use(express.json());
@@ -33,6 +35,10 @@ connectToDatabase();
 
 app.get("/", (req, res) => {
   res.render("home.ejs");
+});
+
+app.get("/prod", (req, res) => {
+  res.render("uploadProducts.ejs");
 });
 
 // routers

@@ -8,7 +8,7 @@ const {
   uploadImage,
 } = require("../controllers/user");
 const upload = require("../multer/multer");
-const uploadImageToCloudinary = require("../utils/uploadImage");
+const { uploadImageToCloudinary } = require("../utils/uploadImage");
 
 const router = express.Router();
 
@@ -17,10 +17,6 @@ router.post("/login", loginUser);
 router.get("/users", getAllUser);
 router.get("/user/:id", getUserById);
 router.delete("/user/:id", deleteUserById);
-router.post(
-  "/uploadImage/:id",
-  upload.single("profileImage"),
-  uploadImageToCloudinary
-);
+router.post("/uploadImage/:id", upload.single("profileImage"), uploadImage);
 
 module.exports = router;
