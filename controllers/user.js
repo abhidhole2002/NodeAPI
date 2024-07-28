@@ -9,6 +9,7 @@ const { uploadToCloudinary } = require("../utils/uploadImage");
 
 const userPost = async (req, res) => {
   const { name, email, password, address, phone } = req.body;
+  console.log(req.body);
 
   try {
     const existingUser = await User.findOne({ email });
